@@ -74,3 +74,24 @@ This represents -2048.
 
 ## Bonus.
 The value in the register x0 will be 32'd0 as ,it is reserved for zero output flag and cannot be used for writing or any other computation.
+
+
+
+
+
+
+
+
+1. The wiring error is probably in the assignment of the second operand based on alu_src.To verify the diagnosis we can check the contents of the destination register or the second operand to see if it contains the immediate field for addi and rs2 for a normal add operation.
+
+2. The register file stores 12 in the next clock cycle as the time taken to write a register must be within the active clock edge.If regwrite is 0 then the register's contents do not change.
+
+3. It's signed decimal value is -8.Its 32 bit sign-extended representation would be 1111 1111 1111 1111 1111 1111 1111 1000.The ADDI instruction would produce the result 2.
+
+4. Only checking alu_result is insufficient because the destination register might have a value different than the result because of some error.The additional checks would be to check the destination register and the second operand to see if it correctly contains the value of the immediate field or rs2 depending on the instruction.
+
+5.  An instruction decoder that automatically extracts those flags based on the opcode and instruction fields.
+
+## Bonus.
+
+No,it does not prove that the synthesized datapath can run at 100 MHz.The actual datapath may have additional propogation delays or some errors because of some defect which would increase the 10ns clock period.
