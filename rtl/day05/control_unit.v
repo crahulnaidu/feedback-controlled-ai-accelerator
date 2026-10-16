@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 module control_unit(
     input [6:0] opcode,
     output reg ALUSrc,

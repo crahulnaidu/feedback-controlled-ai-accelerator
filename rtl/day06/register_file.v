@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 module register_file(
     input clk,
     input rst,
@@ -15,8 +17,8 @@ module register_file(
 
 reg [31:0] registers [31:0];
 
-assign read_data1=registers[rs1];
-assign read_data2=registers[rs2];
+assign read_data1=(rs1==5'd0)?32'd0:registers[rs1];
+assign read_data2=(rs2==5'd0)?32'd0:registers[rs2];
 
 always @ (posedge clk)begin
     if (rst)begin

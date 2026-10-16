@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 module datapath_top(
     input wire clk,
     input wire rst,
@@ -26,17 +28,17 @@ module datapath_top(
         .RegWrite(reg_write),
         .rs1(rs1),
         .rs2(rs2),
-        .rsd(rsd),
+        .rd(rd),
         .write_data(alu_result),
-        .rdata1(rdata1),
-        .rdata2(rdata2)
+        .read_data1(rdata1),
+        .read_data2(rdata2)
     );
 
     assign operand_b=(alu_src) ? imm32 : rdata2;
 
     alu alu_inst(
         .a(rdata1),
-        .b(rdata2),
+        .b(operand_b),
         .alu_control(alu_ctrl),
         .result(alu_result),
         .zero(zero_flag)
