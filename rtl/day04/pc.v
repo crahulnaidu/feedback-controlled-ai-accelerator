@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 module pc (
     input clk,          // Clock signal
     input rst,          // Asynchronous reset (reboots PC to 0)
