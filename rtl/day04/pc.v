@@ -1,8 +1,9 @@
 `timescale 1ns/1ps
 
 module pc (
-    input clk,          // Clock signal
-    input rst,          // Asynchronous reset (reboots PC to 0)
+    input wire clk,          // Clock signal
+    input wire rst,          // Asynchronous reset (reboots PC to 0)
+    input wire pc_enable,   //Controls if pc_out is updated.
     output reg [31:0] pc_out // 32-bit output holding the current address
 );
 
@@ -10,7 +11,7 @@ module pc (
     always @(posedge clk or posedge rst) begin
         if (rst) begin
             pc_out <= 32'h00000000; // Reset PC to address 0
-        end else begin
+        end else if(pc_enable) begin
             pc_out <= pc_out + 4;   // Increment by 4 bytes every cycle
         end
     end

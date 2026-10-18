@@ -1,0 +1,50 @@
+# -----------------------------------------------------------------------------
+# HDL simulation outputs (Icarus Verilog, GTKWave, and similar tools)
+# -----------------------------------------------------------------------------
+*.vvp
+*.vcd
+*.fst
+*.lxt
+*.lxt2
+*.vpd
+*.wlf
+
+# Common simulator-generated working files
+work/
+transcript
+vsim.wlf
+
+# -----------------------------------------------------------------------------
+# Build and compiled outputs
+# -----------------------------------------------------------------------------
+build/
+sim/out/
+obj_dir/          # Verilator generated build directory
+coverage.dat      # Verilator coverage output
+
+# -----------------------------------------------------------------------------
+# Generated logs and temporary files
+# Keep concise, reviewed results in docs/ or results/ rather than raw logs.
+# -----------------------------------------------------------------------------
+*.log
+*.tmp
+*.bak
+*~
+*.swp
+*.swo
+
+# -----------------------------------------------------------------------------
+# Python reference models, scripts, and test utilities
+# -----------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# -----------------------------------------------------------------------------
+# OS / IDE files
+# -----------------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+.idea/

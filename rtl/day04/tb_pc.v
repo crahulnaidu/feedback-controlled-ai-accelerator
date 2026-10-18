@@ -1,12 +1,14 @@
 module tb_pc;
     reg clk;
     reg rst;
+    reg pc_enable;
     wire [31:0] pc_out;
 
     // Connect our testing rig to the Program Counter
     pc uut (
         .clk(clk),
         .rst(rst),
+        .pc_enable(pc_enable),
         .pc_out(pc_out)
     );
 
@@ -28,6 +30,7 @@ module tb_pc;
         // Start with a Reset
         rst = 1; #12; 
         rst = 0; // Release reset to let the PC start counting
+        pc_enable=1'b1;
         
         // Let it run for several clock cycles
         #80;

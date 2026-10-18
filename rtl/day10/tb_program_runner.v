@@ -7,13 +7,15 @@ module tb_program_runner;
       wire [31:0] alu_result;
       wire zero_flag;
       wire instruction_valid;
+      wire program_done;
 
       program_runner uut(
         .clk(clk),
         .rst(rst),
         .alu_result(alu_result),
         .zero_flag(zero_flag),
-        .instruction_valid(instruction_valid)
+        .instruction_valid(instruction_valid),
+        .program_done(program_done)
       );
 
       always #5 clk=~clk;
@@ -54,6 +56,9 @@ module tb_program_runner;
             #1;
         end
 
+        wait (program_done==1'b1);
+        #1;
+
          $display("Checking final register values...");
 
         // x4 = 4
@@ -88,6 +93,9 @@ module tb_program_runner;
         // it does not overwrite x2.
         @(posedge clk);
         #1;
+
+        if (uut.pc_inst.pc_out==32'h0000001C)
+            $display("address stays at 32'h0000001C");
 
         if (uut.d_inst.d_t.rf_inst.registers[2] !== 32'd14)
             $fatal(1, "FAIL: Unsupported instruction modified x2");
