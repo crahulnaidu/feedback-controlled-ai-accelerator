@@ -2,13 +2,16 @@ module tb_pc;
     reg clk;
     reg rst;
     reg pc_enable;
+    reg [31:0] pc_next;
     wire [31:0] pc_out;
+
 
     // Connect our testing rig to the Program Counter
     pc uut (
         .clk(clk),
         .rst(rst),
         .pc_enable(pc_enable),
+        .pc_next(pc_next),
         .pc_out(pc_out)
     );
 
@@ -31,9 +34,14 @@ module tb_pc;
         rst = 1; #12; 
         rst = 0; // Release reset to let the PC start counting
         pc_enable=1'b1;
+       
         
         // Let it run for several clock cycles
-        #80;
+        repeat (16)begin
+            @posedge(clk);
+            pc_next<=pc_out+4;
+        end
+
 
         $finish; // End simulation
     end

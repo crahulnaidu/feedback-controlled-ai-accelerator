@@ -41,6 +41,34 @@ module instruction_rom(
                 instruction = 32'hFFE10293;
             end
 
+            // BEQ x4, x4, +8
+            // Taken: skip the instruction at 0x20.
+            32'h0000001C:begin
+                instruction = 32'h00420463;
+            end
+
+            // This instruction must be skipped.
+            // If it executed, x5 would become 99.
+            32'h00000020:begin
+                instruction = 32'h06300293;
+            end
+
+            // ADDI x7, x0, 7
+            32'h00000024:begin
+                instruction = 32'h00700393;
+            end
+
+            // BEQ x4, x6, +8
+            // Not taken because x4=4 and x6=10.
+            32'h00000028:begin
+                instruction = 32'h00620463;
+            end
+
+            // ADDI x8, x0, 8
+            32'h0000002C:begin
+                instruction = 32'h00800413;
+            end
+
             default:begin
             instruction=32'h00000000;
             end

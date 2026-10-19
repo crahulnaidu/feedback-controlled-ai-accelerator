@@ -6,7 +6,8 @@ module control_extended(
     output reg [3:0] alu_control,
     output reg alu_src,
     output reg reg_write,
-    output reg instruction_valid
+    output reg instruction_valid,
+    output reg branch_enable
 );
 
     wire [6:0] opcode;
@@ -24,10 +25,13 @@ module control_extended(
 
 
     always @ (*) begin
+        
+        //Safe Defaults.
         alu_control=AND;
         alu_src=1'b0;
         reg_write=1'b0;
         instruction_valid=1'b0;
+        branch_enable=1'b0;
 
         case (opcode)
             7'b0110011: begin
@@ -39,6 +43,7 @@ module control_extended(
                                 alu_src=1'b0;
                                 reg_write=1'b1;
                                 instruction_valid=1'b1;
+                                branch_enable=1'b0;
                             end
 
                             7'b0100000: begin
@@ -46,6 +51,7 @@ module control_extended(
                                 alu_src=1'b0;
                                 reg_write=1'b1;
                                 instruction_valid=1'b1;
+                                branch_enable=1'b0;
                             end
 
                             default: begin
@@ -61,6 +67,7 @@ module control_extended(
                                 alu_src=1'b0;
                                 reg_write=1'b1;
                                 instruction_valid=1'b1;
+                                branch_enable=1'b0;
                             end
 
                             default:begin
@@ -75,6 +82,7 @@ module control_extended(
                                 alu_src=1'b0;
                                 reg_write=1'b1;
                                 instruction_valid=1'b1;
+                                branch_enable=1'b0;
                             end
                             default:begin
                             end
@@ -91,12 +99,27 @@ module control_extended(
                         alu_src=1'b1;
                         reg_write=1'b1;
                         instruction_valid=1'b1;
+                        branch_enable=1'b0;
                     end
 
                     default:begin
                     end
                 endcase
 
+            end
+
+            7'b1100011:begin
+                case (funct_3)
+                    3'b000:begin
+                        alu_control=SUB;
+                        alu_src=1'b0;
+                        reg_write=1'b0;
+                        instruction_valid=1'b1;
+                        branch_enable=1'b1;
+                    end
+                    default:begin
+                    end
+                endcase
             end
 
             default:begin

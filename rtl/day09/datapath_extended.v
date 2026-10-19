@@ -7,7 +7,8 @@ module datapath_extended(
     
     output wire [31:0] alu_result,
     output wire zero_flag,
-    output wire instruction_valid
+    output wire instruction_valid,
+    output wire branch_enable
 );
     wire decoded_alu_src;
     wire [3:0] decoded_alu_control;
@@ -19,7 +20,8 @@ module datapath_extended(
         .alu_control(decoded_alu_control),
         .alu_src(decoded_alu_src),
         .reg_write(reg_write),
-        .instruction_valid(instruction_valid)
+        .instruction_valid(instruction_valid),
+        .branch_enable(branch_enable)
     );
 
     assign safe_reg_write=(reg_write & instruction_valid);
